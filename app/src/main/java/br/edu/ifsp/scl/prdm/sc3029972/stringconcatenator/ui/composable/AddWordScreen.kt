@@ -9,17 +9,24 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.edu.ifsp.scl.prdm.sc3029972.stringconcatenator.ui.theme.StringConcatenatorTheme
 
 @Composable
-fun AddWordScreen(modifier: Modifier) {
+fun AddWordScreen(modifier: Modifier, textReceived: String, onConcatenateClick: (String) -> Unit) {
+
+    var textReceived by remember { mutableStateOf( value = textReceived)}
+    var stringToSend by remember { mutableStateOf( value = "")}
 
     Column(modifier = modifier.fillMaxSize()){
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = ""
+            text = textReceived
         )
 
         OutlinedTextField(
@@ -30,13 +37,17 @@ fun AddWordScreen(modifier: Modifier) {
                     text = "Digite o texto aqui"
                 )
             },
-            value = "",
-            onValueChange = {}
+            value = stringToSend,
+            onValueChange = {
+                stringToSend = it
+            }
         )
 
         Button(
             modifier = Modifier.fillMaxWidth(),
-            onClick = {}
+            onClick = {
+                onConcatenateClick(stringToSend)
+            }
         ) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
@@ -62,7 +73,11 @@ fun AddWordScreen(modifier: Modifier) {
 fun AddWordScreenPreview(){
     StringConcatenatorTheme() {
         Surface{
-            AddWordScreen(modifier = Modifier)
+            AddWordScreen(
+                modifier = Modifier,
+                textReceived = "TextReceived",
+                onConcatenateClick = {}
+            )
         }
     }
 }
