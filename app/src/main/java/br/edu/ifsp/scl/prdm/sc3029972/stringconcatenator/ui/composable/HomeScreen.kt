@@ -1,7 +1,6 @@
 package br.edu.ifsp.scl.prdm.sc3029972.stringconcatenator.ui.composable
 
 import android.content.res.Configuration
-import androidx.compose.foundation.gestures.draggable2D
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
