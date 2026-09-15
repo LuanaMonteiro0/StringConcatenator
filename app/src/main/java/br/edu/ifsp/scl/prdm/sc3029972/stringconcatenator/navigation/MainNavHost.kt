@@ -11,7 +11,7 @@ import androidx.navigation.navArgument
 import br.edu.ifsp.scl.prdm.sc3029972.stringconcatenator.ui.composable.AddWordScreen
 import br.edu.ifsp.scl.prdm.sc3029972.stringconcatenator.ui.composable.HomeScreen
 
-private const val TEXT_TO_CONCATENATE= "text_to_CONCATENATE"
+private const val TEXT_TO_CONCATENATE= "text_to_concatenate"
 private const val TEXT_TO_SHOW= "text_to_show"
 
 @Composable
@@ -53,9 +53,13 @@ fun MainNavHost(navHostController: NavHostController, modifier: Modifier){
             )
         ){ backStackEntry ->
 
+            val textReceived = backStackEntry.arguments?.getString("textReceived") ?: ""
+
+            navHostController.previousBackStackEntry?.savedStateHandle?.set(TEXT_TO_SHOW, textReceived)
+
             AddWordScreen(
                 modifier = modifier,
-                textReceived = backStackEntry.arguments?.getString("textReceived") ?: "",
+                textReceived = textReceived,
                 onConcatenateClick = {
                     textToConcatenate ->
                     navHostController.previousBackStackEntry?.savedStateHandle?.set(TEXT_TO_CONCATENATE, textToConcatenate)
