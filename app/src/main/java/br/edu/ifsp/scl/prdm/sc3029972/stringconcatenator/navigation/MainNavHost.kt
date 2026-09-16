@@ -28,15 +28,23 @@ fun MainNavHost(navHostController: NavHostController, modifier: Modifier){
             val textToConcatenate = backStackEntry.savedStateHandle.get<String>(TEXT_TO_CONCATENATE) ?: ""
             val textToShow = backStackEntry.savedStateHandle.get<String>(TEXT_TO_SHOW) ?: ""
 
+            if (textToConcatenate.isNotEmpty()) {
+                backStackEntry.savedStateHandle[TEXT_TO_CONCATENATE] = ""
+            }
+
             HomeScreen(
                 modifier = modifier,
                 textToShow = textToShow,
                 textToConcatenate = textToConcatenate,
-                onAddWordClick = {textToShow ->
+                onAddWordClick = { textToShow ->
                     navHostController.navigate(
                         route = "${Screen.AddWord.route}/${Uri.encode(textToShow)}"
                     )
                 },
+                onResetClick = {
+                    backStackEntry.savedStateHandle[TEXT_TO_SHOW] = ""
+                    backStackEntry.savedStateHandle[TEXT_TO_CONCATENATE] = ""
+                }
             )
 
         }
